@@ -20,6 +20,12 @@ import {
   TrendingUp,
   LogOut,
   ExternalLink,
+  Sparkles,
+  Zap,
+  Target,
+  Activity,
+  Clock,
+  CheckCircle,
 } from "lucide-react"
 import { useRouter } from "next/navigation"
 
@@ -121,27 +127,34 @@ function DashboardContent() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b bg-card">
+      <header className="border-b glass-effect">
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center space-x-4">
             <Link href="/" className="flex items-center space-x-2">
-              <Bot className="h-8 w-8 text-primary" />
-              <span className="text-xl font-bold">ChatBot AI</span>
+              <div className="relative">
+                <Bot className="h-8 w-8 text-primary glow-effect" />
+                <div className="absolute -top-1 -right-1 h-3 w-3 bg-accent rounded-full animate-pulse" />
+              </div>
+              <span className="text-xl font-bold gradient-text">NeuralChat AI</span>
             </Link>
-            <div className="text-sm text-muted-foreground">
+            <div className="text-sm text-muted-foreground bg-muted/50 px-3 py-1 rounded-full">
               {data?.tenant.name} • {data?.tenant.plan_name} Plan
             </div>
           </div>
 
           <div className="flex items-center space-x-4">
             <Link href="/billing">
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="sm" className="border-primary/30 hover:bg-primary/10 bg-transparent">
                 <CreditCard className="h-4 w-4 mr-2" />
                 Billing
               </Button>
             </Link>
-            <Button variant="ghost" size="sm" onClick={handleSignOut}>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={handleSignOut}
+              className="hover:bg-destructive/10 hover:text-destructive"
+            >
               <LogOut className="h-4 w-4 mr-2" />
               Sign Out
             </Button>
@@ -150,53 +163,78 @@ function DashboardContent() {
       </header>
 
       <div className="container py-8">
-        {/* Stats Cards */}
+        <div className="mb-8">
+          <div className="flex items-center gap-3 mb-2">
+            <h1 className="text-3xl font-bold gradient-text">Welcome back!</h1>
+            <Sparkles className="h-6 w-6 text-accent animate-pulse" />
+          </div>
+          <p className="text-muted-foreground">
+            Monitor your AI chatbots, track performance, and manage your customer support automation.
+          </p>
+        </div>
+
         <div className="grid md:grid-cols-4 gap-6 mb-8">
-          <Card>
+          <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 bg-gradient-to-br from-card to-card/50">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Total Sites</CardTitle>
-              <Globe className="h-4 w-4 text-muted-foreground" />
+              <div className="h-8 w-8 bg-primary/10 rounded-lg flex items-center justify-center">
+                <Globe className="h-4 w-4 text-primary" />
+              </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{data?.usage.sites_count || 0}</div>
-              <p className="text-xs text-muted-foreground">
+              <div className="text-3xl font-bold text-primary">{data?.usage.sites_count || 0}</div>
+              <p className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
+                <TrendingUp className="h-3 w-3" />
                 of {data?.usage.sites_limit === -1 ? "unlimited" : data?.usage.sites_limit} sites
               </p>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 bg-gradient-to-br from-card to-card/50">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Queries This Month</CardTitle>
-              <MessageSquare className="h-4 w-4 text-muted-foreground" />
+              <div className="h-8 w-8 bg-accent/10 rounded-lg flex items-center justify-center">
+                <MessageSquare className="h-4 w-4 text-accent" />
+              </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{data?.usage.queries_this_month || 0}</div>
-              <p className="text-xs text-muted-foreground">
+              <div className="text-3xl font-bold text-accent">{data?.usage.queries_this_month || 0}</div>
+              <p className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
+                <Activity className="h-3 w-3" />
                 of {data?.usage.queries_limit === -1 ? "unlimited" : data?.usage.queries_limit} queries
               </p>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 bg-gradient-to-br from-card to-card/50">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Active Chats</CardTitle>
-              <Users className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium">Active Conversations</CardTitle>
+              <div className="h-8 w-8 bg-chart-3/10 rounded-lg flex items-center justify-center">
+                <Users className="h-4 w-4 text-chart-3" />
+              </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">24</div>
-              <p className="text-xs text-muted-foreground">+12% from last month</p>
+              <div className="text-3xl font-bold text-chart-3">24</div>
+              <p className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
+                <TrendingUp className="h-3 w-3" />
+                +12% from last month
+              </p>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 bg-gradient-to-br from-card to-card/50">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Response Rate</CardTitle>
-              <TrendingUp className="h-4 w-4 text-muted-foreground" />
+              <div className="h-8 w-8 bg-chart-4/10 rounded-lg flex items-center justify-center">
+                <Target className="h-4 w-4 text-chart-4" />
+              </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">98.5%</div>
-              <p className="text-xs text-muted-foreground">+2.1% from last month</p>
+              <div className="text-3xl font-bold text-chart-4">98.5%</div>
+              <p className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
+                <TrendingUp className="h-3 w-3" />
+                +2.1% from last month
+              </p>
             </CardContent>
           </Card>
         </div>
@@ -205,9 +243,15 @@ function DashboardContent() {
         <div className="grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-bold">Your Sites</h2>
+              <div>
+                <h2 className="text-2xl font-bold flex items-center gap-2">
+                  Your AI Chatbots
+                  <Bot className="h-6 w-6 text-primary" />
+                </h2>
+                <p className="text-muted-foreground">Manage and monitor your deployed chatbots</p>
+              </div>
               <Link href="/onboard/site">
-                <Button>
+                <Button className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 shadow-lg">
                   <Plus className="h-4 w-4 mr-2" />
                   Add Site
                 </Button>
@@ -215,36 +259,59 @@ function DashboardContent() {
             </div>
 
             {data?.sites.length === 0 ? (
-              <Card className="p-8 text-center">
-                <Bot className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-lg font-semibold mb-2">No sites yet</h3>
-                <p className="text-muted-foreground mb-4">
-                  Get started by adding your first website to create an AI chatbot.
+              <Card className="p-12 text-center border-0 shadow-lg bg-gradient-to-br from-card to-card/50">
+                <div className="h-16 w-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Bot className="h-8 w-8 text-primary" />
+                </div>
+                <h3 className="text-xl font-semibold mb-3">No chatbots deployed yet</h3>
+                <p className="text-muted-foreground mb-6 max-w-md mx-auto">
+                  Get started by adding your first website to create an intelligent AI chatbot that understands your
+                  content.
                 </p>
                 <Link href="/onboard/site">
-                  <Button>
+                  <Button
+                    size="lg"
+                    className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90"
+                  >
                     <Plus className="h-4 w-4 mr-2" />
-                    Add Your First Site
+                    Deploy Your First Chatbot
                   </Button>
                 </Link>
               </Card>
             ) : (
               <div className="space-y-4">
                 {data?.sites.map((site) => (
-                  <Card key={site.id}>
+                  <Card
+                    key={site.id}
+                    className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] bg-gradient-to-br from-card to-card/50"
+                  >
                     <CardHeader>
                       <div className="flex items-center justify-between">
-                        <div>
-                          <CardTitle className="text-lg">{site.title || site.domain}</CardTitle>
-                          <CardDescription className="flex items-center gap-2">
-                            <Globe className="h-4 w-4" />
-                            {site.domain}
-                          </CardDescription>
+                        <div className="flex items-center gap-4">
+                          <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                            <Globe className="h-6 w-6 text-primary" />
+                          </div>
+                          <div>
+                            <CardTitle className="text-lg flex items-center gap-2">
+                              {site.title || site.domain}
+                              {site.status === "ready" && <CheckCircle className="h-4 w-4 text-primary" />}
+                            </CardTitle>
+                            <CardDescription className="flex items-center gap-2">
+                              <Globe className="h-4 w-4" />
+                              {site.domain}
+                            </CardDescription>
+                          </div>
                         </div>
-                        <div className="flex items-center gap-2">
-                          <Badge className={getStatusColor(site.status)}>{getStatusText(site.status)}</Badge>
+                        <div className="flex items-center gap-3">
+                          <Badge className={`${getStatusColor(site.status)} border-0`}>
+                            {getStatusText(site.status)}
+                          </Badge>
                           <Link href={`/settings/sites/${site.id}`}>
-                            <Button variant="outline" size="sm">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="border-primary/30 hover:bg-primary/10 bg-transparent"
+                            >
                               <Settings className="h-4 w-4 mr-2" />
                               Settings
                             </Button>
@@ -254,14 +321,18 @@ function DashboardContent() {
                     </CardHeader>
                     <CardContent>
                       <div className="flex items-center justify-between text-sm text-muted-foreground">
-                        <span>Created {new Date(site.created_at).toLocaleDateString()}</span>
+                        <span className="flex items-center gap-1">
+                          <Clock className="h-3 w-3" />
+                          Created {new Date(site.created_at).toLocaleDateString()}
+                        </span>
                         {site.status === "ready" && (
                           <Link
                             href={`/widget/${site.id}`}
                             target="_blank"
-                            className="flex items-center gap-1 hover:text-foreground"
+                            className="flex items-center gap-1 hover:text-primary transition-colors"
                           >
-                            View Widget
+                            <Zap className="h-3 w-3" />
+                            View Live Widget
                             <ExternalLink className="h-3 w-3" />
                           </Link>
                         )}
@@ -273,51 +344,65 @@ function DashboardContent() {
             )}
           </div>
 
-          {/* Sidebar */}
           <div className="space-y-6">
-            <Card>
+            <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-card/50">
               <CardHeader>
-                <CardTitle className="text-lg">Quick Actions</CardTitle>
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <Sparkles className="h-5 w-5 text-accent" />
+                  Quick Actions
+                </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 <Link href="/onboard/site" className="block">
-                  <Button variant="outline" className="w-full justify-start bg-transparent">
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start border-primary/30 hover:bg-primary/10 hover:border-primary/50 transition-all duration-300 bg-transparent"
+                  >
                     <Plus className="h-4 w-4 mr-2" />
-                    Add New Site
+                    Deploy New Chatbot
                   </Button>
                 </Link>
                 <Link href="/billing" className="block">
-                  <Button variant="outline" className="w-full justify-start bg-transparent">
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start border-primary/30 hover:bg-primary/10 hover:border-primary/50 transition-all duration-300 bg-transparent"
+                  >
                     <CreditCard className="h-4 w-4 mr-2" />
                     Manage Billing
                   </Button>
                 </Link>
                 <Link href="/admin/features" className="block">
-                  <Button variant="outline" className="w-full justify-start bg-transparent">
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start border-primary/30 hover:bg-primary/10 hover:border-primary/50 transition-all duration-300 bg-transparent"
+                  >
                     <BarChart3 className="h-4 w-4 mr-2" />
-                    View Features
+                    View All Features
                   </Button>
                 </Link>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-card/50">
               <CardHeader>
-                <CardTitle className="text-lg">Usage Overview</CardTitle>
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <Activity className="h-5 w-5 text-primary" />
+                  Usage Overview
+                </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
+                <div className="space-y-6">
                   <div>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span>Monthly Queries</span>
-                      <span>
+                    <div className="flex justify-between text-sm mb-2">
+                      <span className="font-medium">Monthly Queries</span>
+                      <span className="text-accent font-semibold">
                         {data?.usage.queries_this_month}/
                         {data?.usage.queries_limit === -1 ? "∞" : data?.usage.queries_limit}
                       </span>
                     </div>
-                    <div className="w-full bg-muted rounded-full h-2">
+                    <div className="w-full bg-muted rounded-full h-3">
                       <div
-                        className="bg-primary h-2 rounded-full"
+                        className="bg-gradient-to-r from-primary to-accent h-3 rounded-full transition-all duration-500"
                         style={{
                           width:
                             data?.usage.queries_limit === -1
@@ -329,15 +414,15 @@ function DashboardContent() {
                   </div>
 
                   <div>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span>Sites</span>
-                      <span>
+                    <div className="flex justify-between text-sm mb-2">
+                      <span className="font-medium">Active Sites</span>
+                      <span className="text-primary font-semibold">
                         {data?.usage.sites_count}/{data?.usage.sites_limit === -1 ? "∞" : data?.usage.sites_limit}
                       </span>
                     </div>
-                    <div className="w-full bg-muted rounded-full h-2">
+                    <div className="w-full bg-muted rounded-full h-3">
                       <div
-                        className="bg-primary h-2 rounded-full"
+                        className="bg-gradient-to-r from-primary to-accent h-3 rounded-full transition-all duration-500"
                         style={{
                           width:
                             data?.usage.sites_limit === -1
@@ -346,6 +431,31 @@ function DashboardContent() {
                         }}
                       />
                     </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="border-0 shadow-lg bg-gradient-to-br from-accent/5 to-primary/5">
+              <CardHeader>
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <TrendingUp className="h-5 w-5 text-accent" />
+                  Performance Insights
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm">Avg Response Time</span>
+                    <span className="text-sm font-semibold text-primary">0.8s</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm">Customer Satisfaction</span>
+                    <span className="text-sm font-semibold text-accent">4.9/5</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm">Resolution Rate</span>
+                    <span className="text-sm font-semibold text-chart-3">94%</span>
                   </div>
                 </div>
               </CardContent>
@@ -360,10 +470,10 @@ function DashboardContent() {
 function DashboardSkeleton() {
   return (
     <div className="min-h-screen bg-background">
-      <header className="border-b bg-card">
+      <header className="border-b glass-effect">
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center space-x-4">
-            <Bot className="h-8 w-8 text-primary" />
+            <Bot className="h-8 w-8 text-primary glow-effect" />
             <Skeleton className="h-6 w-32" />
           </div>
           <div className="flex items-center space-x-4">
